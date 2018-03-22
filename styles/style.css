@@ -1,0 +1,194 @@
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #f1f3f6;
+	overflow-x: hidden;
+}
+
+p {
+	margin-left: 57px;
+}
+
+.header_wrapper {
+	width: 100%;
+	height: 4em;
+	background-color: #0a5acf;
+	padding: 1em 3em;
+	position: fixed;
+	top: 0;
+}
+
+#header_logo {
+	width: 9%;
+	float: left;
+	margin-right: 20px;
+}
+
+#header_adbanner {
+	width: 30%;
+	float: right;
+	height: 6em;
+	/* position: absolute; */
+	margin-right: 3em;
+	margin-top: -16px;
+}
+
+.menubar_wrapper {
+	width: 100%;
+	height: 2.5em;
+	background-color: #fff;
+	box-shadow: 1px 1px 1px grey;
+	margin-top: 6em;
+}
+
+.SideContentWrap {
+	margin: 2px;
+}
+
+.sidebar_wrapper {
+	width: 20%;
+	height: 94em;
+	float: left;
+	background-color: #065453;
+	margin-left: 1em;
+}
+
+.content_area {
+	width: 76%;
+	height: 94em;
+	float: right;
+	background-color: #fff;
+	margin-right: 1em;
+}
+
+#footer {
+	width: 100%;
+	height: 8em;
+	background-color: #011240;
+	clear: both;
+}
+
+#menu {
+	padding: 4px;
+	margin: 1px;
+}
+
+#menu li {
+	list-style: none;
+	display: inline;
+	margin: 2.5em;
+	line-height: 2;
+}
+
+#menu a {
+	text-decoration: none;
+	font-family: sans-serif;
+	color: #000;
+	font-size: 0.9em;
+}
+
+#menu a:hover {
+	text-decoration: underline;
+	font-weight: bold;
+	color: royalblue;
+}
+
+#searchbar {
+	margin-top: 14px;
+}
+
+#query_box {
+	width: 32em;
+	height: 2.5em;
+	box-shadow: -2px 2px 2px 0px #3434a0;
+}
+
+#search_btn {
+	margin-left: -5px;
+	height: 3em;
+	cursor: pointer;
+	box-shadow: 2px 2px 1px #3434a0;
+}
+
+.sidebar_wrapper h2 {
+	background-color: #0fbfc5;
+	color: #fff;
+	text-align: center;
+	margin: 0;
+	padding: 3px;
+}
+
+.categories {
+	text-align: center;
+	line-height: 2;
+	padding: 0;
+	font-size: 1em;
+	margin-top: 7px;
+
+}
+
+.categories li {
+	list-style: none;
+	font-family: sans-serif;
+}
+
+.categories a {
+	text-decoration: none;
+	color: #fff;
+}
+
+.categories li a:hover {
+	color: royalblue;
+	font-weight: bold;
+}
+
+#product_box {
+	/*width: 80%;
+	height: 119px; */
+	margin: 4px 22px;
+	padding: 7px;
+}
+
+#single_product {
+	float: left;
+	margin-left: 20px;
+	padding: 7px;
+	width: 28%;
+	box-shadow: 0px 0px 2px 0px grey;
+}
+
+#single_product:hover {
+	cursor: pointer;
+	box-shadow: 0px 0px 2px 1px grey;
+}
+
+#single_product img {
+	width: 100%;
+	height: 13em;
+}
+
+#single_product p {
+	margin: 5px 0px;
+}
+
+#single_product a button {
+	float: right;
+}
+
+#shopping_cart {
+	width: 94.6%;
+	padding: 23px;
+	background-color: #065453;
+	color: #fff;
+	font-size: 1.3em;
+}
+
+#shopping_cart span {
+	float: right;
+	line-height: 0;
+}
+
+#shopping_cart span b,
+a {
+	color: #b4f72a;
+}
