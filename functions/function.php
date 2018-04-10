@@ -1,6 +1,10 @@
 <?php
+//connectivity to the database
 
 $con= mysqli_connect("localhost","root","","ecommerce");
+if(mysqli_connect_errno()){
+	echo "The connection was not established: ". mysqli_connect_error();
+}
 
 // getting the categories
 
@@ -15,6 +19,9 @@ function getCats(){
 	}
 }
 
+
+// getting the brands 
+
 function getbrand(){
 	
 	global $con;
@@ -27,6 +34,9 @@ function getbrand(){
 		echo "<li><a href='index.php?brand_id=$brand_id'>$brand_title</a></li>" ;
 	 }
     }
+
+
+//getting the product from db
 
 function get_product(){
 	if(!isset($_GET['cat_id'])){
@@ -49,15 +59,17 @@ function get_product(){
 		<div id='single_product'>
 		<h3>$product_tittle</h3>
 		<img src='admin_area/product_images/$product_image'/>
-		<p><b>₹ $product_price</b></p>
+		<p><b>Price: ₹ $product_price</b></p>
 		<a href='details.php?product_id=$product_id' float:left>Details</a>
-		<a href='index.php?product_id=$product_id' id='addtocart'><button>Add to cart</button></a>
+		<a href='index.php?add_cart=$product_id' id='addtocart'><button>Add to cart</button></a>
 		</div>		
 		";
 		}
 	}	
 	}
 }
+
+//getting the product by category from db
 
 function getCatProd(){
 	if(isset($_GET['cat_id'])){
@@ -82,7 +94,7 @@ function getCatProd(){
 		<div id='single_product'>
 		<h3>$product_tittle</h3>
 		<img src='admin_area/product_images/$product_image'/>
-		<p><b>₹ $product_price</b></p>
+		<p><b>Price: ₹ $product_price</b></p>
 		<a href='details.php?product_id=$product_id' float:left>Details</a>
 		<a href='index.php?product_id=$product_id' id='addtocart'><button>Add to cart</button></a>
 		</div>		
@@ -90,6 +102,9 @@ function getCatProd(){
 		}
 	}	
 	}
+
+
+//getting the product by brand from db
 
 function getBrandProd(){
 	if(isset($_GET['brand_id'])){
@@ -114,7 +129,7 @@ function getBrandProd(){
 		<div id='single_product'>
 		<h3>$product_tittle</h3>
 		<img src='admin_area/product_images/$product_image'/>
-		<p><b>₹ $product_price</b></p>
+		<p><b>Price: ₹ $product_price</b></p>
 		<a href='details.php?product_id=$product_id' float:left>Details</a>
 		<a href='index.php?product_id=$product_id' id='addtocart'><button>Add to cart</button></a>
 		</div>		
@@ -122,4 +137,86 @@ function getBrandProd(){
 		}
 	}	
 	}
+
+// getting the User Ip Address
+
+function getUserIpAddr(){
+    if(!empty($_SERVER['HTTP_CLIENT_IP'])){
+        //ip from share internet
+        $ip = $_SERVER['HTTP_CLIENT_IP'];
+    }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+        //ip pass from proxy
+        $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    }else{
+        $ip = $_SERVER['REMOTE_ADDR'];
+    }
+    return $ip;
+}
+
+// creating the shopping cart
+
+ function cart(){
+	 if(isset($_GET['add_cart'])){
+		 global $con;
+		 
+		 $prod_id=$_GET['add_cart'];		 
+		 $ip=getUserIpAddr();
+
+		 $check_prod="select * from cart where ip_addrs='$ip' and p_id='$prod_id'";
+		 $run_check=mysqli_query($con,$check_prod);
+		 if(mysqli_num_rows($run_check)>0){
+			 echo " ";
+		 }
+		 else{
+			 global $con;
+			 $insert_prod="insert into cart (p_id,ip_addrs) values('$prod_id','$ip')";
+			 $run_prod=mysqli_query($con,$insert_prod);
+			/* $insert_price="insert into cart(p_price) select product.product_price from product where product.product_id=cart.p_id";*/
+			 $run_price=mysqli_query($con,$insert_price);
+			 echo "<script>window.open('index.php','_self')</script>";
+		 }
+		 
+	 }
+ }
+
+
+//getting the total added items
+
+function total_items(){
+	if(isset($_GET['add_cart'])){
+		global $con;
+		$ip=getUserIpAddr();
+		$get_items="select * from cart where ip_addrs='$ip'";
+		$run_query=mysqli_query($con,$get_items);
+		$count_items=mysqli_num_rows($run_query);		
+	}
+	else{
+		global $con;
+		$ip=getUserIpAddr();
+		$get_items="select * from cart where ip_addrs='$ip'";
+		$run_query=mysqli_query($con,$get_items);
+		$count_items=mysqli_num_rows($run_query);		
+	}	
+	echo $count_items;
+}
+
+function total_price(){
+	$total=0;
+		global $con;
+		$ip=getUserIpAddr();
+		$sel_price="select * from cart where ip_addrs='$ip'";
+		$run_query=mysqli_query($con,$sel_price);
+		while($p_price=mysqli_fetch_array($run_query)){
+			$cpro_id=$p_price['p_id'];
+			$cpro_item="select * from product where product_id='$cpro_id'";
+			$run_item=mysqli_query($con,$cpro_item);
+			while($p_product=mysqli_fetch_array($run_item)){
+				$product_price=array($p_product['product_price']);
+				$values=array_sum($product_price);
+				$total+=$values;
+				
+			}
+		}
+	echo "₹".$total;
+}
 ?>

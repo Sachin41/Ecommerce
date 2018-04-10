@@ -47,15 +47,18 @@ p {
 
 .sidebar_wrapper {
 	width: 20%;
-	height: 94em;
 	float: left;
 	background-color: #065453;
 	margin-left: 1em;
 }
 
+.sidebar_wrapper,
+.content_area {
+	height: 210vh;
+}
+
 .content_area {
 	width: 76%;
-	height: 94em;
 	float: right;
 	background-color: #fff;
 	margin-right: 1em;
@@ -142,9 +145,19 @@ p {
 	font-weight: bold;
 }
 
+.categories img {
+	width: 100px;
+	height: 100px;
+	border: 2px solid #fff;
+	padding: 5px;
+}
+
+.categories b {
+	color: #2196f3;
+}
+
 #product_box {
-	/*width: 80%;
-	height: 119px; */
+	/*width: 80%;*/
 	margin: 4px 22px;
 	padding: 7px;
 }
@@ -180,7 +193,7 @@ p {
 	padding: 23px;
 	background-color: #065453;
 	color: #fff;
-	font-size: 1.3em;
+	font-size: 1em;
 }
 
 #shopping_cart span {
@@ -190,5 +203,5 @@ p {
 
 #shopping_cart span b,
 a {
-	color: #b4f72a;
+	color: #2196f3;
 }

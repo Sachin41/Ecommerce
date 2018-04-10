@@ -69,7 +69,7 @@ include ("functions/function.php");
 		<div id='single_product'>
 		<h3>$product_tittle</h3>
 		<img src='admin_area/product_images/$product_image'/>
-		<p><b>₹ $product_price</b></p>
+		<p><b>Price: ₹ $product_price</b></p>
 		<a href='details.php?product_id=$product_id' float:left>Details</a>
 		<a href='index.php?product_id=$product_id' id='addtocart'><button>Add to cart</button></a>
 		</div>		

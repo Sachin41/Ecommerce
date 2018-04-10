@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php 
 session_start();
-include ("functions/function.php");
+include("functions/function.php");
 ?>
 
 <head>
@@ -27,7 +27,7 @@ include ("functions/function.php");
 			<ul id="menu">
 				<li><a href="index.php">Home</a></li>
 				<li><a href="all_product.php">All Product</a></li>
-				<li><a href="customer/my_account.php">My Account</a></li>
+				<li><a href="#">My Account</a></li>
 				<li><a href="#">Sign Up</a></li>
 				<li><a href="#">Shopping Cart</a></li>
 				<li><a href="#">Contact Us</a></li>
@@ -59,23 +59,28 @@ include ("functions/function.php");
 						?>
 						
 						<b> Shopping Cart- </b>Total Item:<?php total_items(); ?> Total Price: <?php total_price(); ?> <a href="cart.php" >Go to Cart</a>
-
-					<?php
-					if(!isset($_SESSION['customer_email'])){
-						echo "<a href='checkout.php'>Login</a>";
-					}
-					else{
-						echo "<a href='logout.php'>Logout</a>";
-					}
-					?>
 					</span>
 				</div>
 
 				<div id="product_box">
-					<?php get_product(); ?>
-					<?php getCatProd(); ?>
-					<?php getBrandProd();?>
+					<?php 
+				if(!isset($_SESSION['customer_email'])){
+					include("customer_login.php");
+				}
+		$ip=getUserIpAddr();
+		$sel_cart="select * from cart where ip_addrs='$ip' ";
+		$run_cart=mysqli_query($con, $sel_cart);
+		$check_cart=mysqli_num_rows($run_cart);
+				 if(isset($_SESSION['customer_email']) and $check_cart==0){
+					echo "<script>window.open('customer/my_account.php','_self')</script>";
+				 }
+					else{
+						include("payment.php");
+					}
+				?>
 				</div>
+
+
 			</div>
 		</div>
 		<div id="footer">
